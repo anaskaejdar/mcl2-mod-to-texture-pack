@@ -1,0 +1,48 @@
+#! /bin/sh
+# Author: Anastasios K Darian
+# Description:
+#     Call this script with two arguments.  The first argument is the root
+# directory of the mod. The second argument is the root directory of the
+# texture pack, like so:
+#
+#     mcl2-to-textures ~/.minetest/games/mineclone2 \
+#               ~/.minetest/textures/pixelperfection-mcl2
+#
+#     It definitely works if the destination directory is a copy of the
+# original pixelperfection directory structure.  I don't know whether it works
+# if the destination is some new directory or something.  Maybe there's missing
+# metadata.
+#
+#     It definitely works with mineclone2.  I don't know whether it works with
+# any other mods.
+
+SOURCEDIR=${1:=.}/mods/
+DESTDIR=${2:=./output-textures/}
+
+find "$SOURCEDIR" -type d -name 'textures' \
+| while read fromboys
+  do toboys="${fromboys%/textures}"
+    toboys="${toboys##*/}"
+    mkdir -p "$DESTDIR/$toboys/"
+    cp "$fromboys"/* "$DESTDIR/$toboys/"
+  done
+
+#Copyright (c) 2020 Anastasios K Darian
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
